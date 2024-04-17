@@ -1,16 +1,27 @@
-document.getElementById('ageCalculatorForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
-    var dob = document.getElementById('dob').value;
-    var dobDate = new Date(dob);
-    var today = new Date();
-    
-    var age = today.getFullYear() - dobDate.getFullYear();
-    var monthDiff = today.getMonth() - dobDate.getMonth();
-    
-    // Adjust age if the current month is before the birth month
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
-        age--;
+function addTask() {
+    var taskInput = document.getElementById("taskInput");
+    var taskList = document.getElementById("taskList");
+  
+    // Check if input is not empty
+    if (taskInput.value.trim() !== "") {
+      // Create new list item
+      var li = document.createElement("li");
+      li.textContent = taskInput.value;
+  
+      // Add delete button
+      var deleteButton = document.createElement("button");
+      deleteButton.textContent = "❌";
+      deleteButton.onclick = function() {
+        taskList.removeChild(li);
+      };
+      li.appendChild(deleteButton);
+  
+      // Append new list item to task list
+      taskList.appendChild(li);
+  
+      // Clear input field
+      taskInput.value = "";
+    } else {
+      alert("Please enter a task!");
     }
-    
-    document.getElementById('result').innerText = "Your age is: " + age;
-});
+  }
